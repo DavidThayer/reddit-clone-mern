@@ -14,6 +14,8 @@ app.use(function(req, res, next) {
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+// Could copy-paste contents of routes.js into server.js, 
+// using app.get, app.post, app.put, app.delete, etc.
 app.use(redditRouter);
 
 let port = process.env.PORT || 3000;
