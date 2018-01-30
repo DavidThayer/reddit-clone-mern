@@ -17,7 +17,7 @@ function show(req, res) {
 
 function create(req, res) {
   TextPost.create(req.body, function(err, post){
-    if (err) res.end(err);
+    if (err) res.send(err);
     else res.json(post);
   });
 }
