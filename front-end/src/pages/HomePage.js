@@ -17,6 +17,7 @@ class HomePage extends Component {
 		this.updatePostTitle = this.updatePostTitle.bind(this);
 		this.updatePostContent = this.updatePostContent.bind(this);
 		this.updatePostThumbnail = this.updatePostThumbnail.bind(this);
+		this.deletePost = this.deletePost.bind(this);
 	}
 
 	componentDidMount() {
@@ -67,6 +68,20 @@ class HomePage extends Component {
 		});
 	}
 
+	deletePost(post_id) {
+		fetch(`http://localhost:8080/api/posts/${ post_id }`, {  
+		  method: 'DELETE',
+		  headers: {
+		    'Accept': 'application/json',
+		    'Content-Type': 'application/json',
+		  }
+		}).then((res) => {
+			this.setState({
+				allMyPosts: this.state.allMyPosts.filter(post => post._id !== post_id)
+			});
+		});
+	}
+
   render() {
     return (
       <p className="HomePage">
@@ -94,6 +109,7 @@ class HomePage extends Component {
 		    	return <li key={ eachPost._id }>
 		    		<img height="30" width="30" src={eachPost.thumbnail_image_url}/>
 		    		<Link to={`/posts/${ eachPost._id }`}>{ eachPost.title }</Link>
+		    		<button onClick={ () => { this.deletePost(eachPost._id) } }>X</button>
 		    	</li>
 		    }) }
       </p>
