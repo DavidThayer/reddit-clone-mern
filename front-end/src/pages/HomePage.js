@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
+// localhost:3000/posts/1
+// localhost:3000/posts/2
 
 class HomePage extends Component {
 	constructor() {
@@ -36,7 +40,8 @@ class HomePage extends Component {
 		this.setState({ newPostThumbnail: e.target.value })
 	}
 
-	createPost() {
+	createPost(e) {
+		e.preventDefault();
 		fetch('http://localhost:8080/api/posts', {  
 		  method: 'POST',
 		  headers: {
@@ -81,14 +86,14 @@ class HomePage extends Component {
 	      		value={ this.state.newPostThumbnail } 
 	      		onChange={ this.updatePostThumbnail }
 	      		type="text" 
-	      		placeholder="thumbnail_image_url"/>
+	      		placeholder="thumbnail image url"/>
 	      	<button type="submit">Add Post</button>
 	      </form>
 
 		    { this.state.allMyPosts.map(eachPost => {
 		    	return <li key={ eachPost._id }>
 		    		<img height="30" width="30" src={eachPost.thumbnail_image_url}/>
-		    		{ eachPost.title }
+		    		<Link to={`/posts/${ eachPost._id }`}>{ eachPost.title }</Link>
 		    	</li>
 		    }) }
       </p>

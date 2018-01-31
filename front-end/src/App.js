@@ -15,7 +15,7 @@ class App extends Component {
 
         <Switch>
           <Route exact path="/" component={ HomePage }/>
-          <Route path="/singlePostPage" component={ SinglePostPage } />
+          <Route path="/posts/:post_id" component={ SinglePostPage } />
         </Switch>
       </div>
     );
